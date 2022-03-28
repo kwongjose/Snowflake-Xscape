@@ -1,7 +1,7 @@
 USE DATABASE escape_velocity_sales;
 
 // drop stages
-DROP STAGE @stage_sales;
+DROP STAGE stage_sales;
 DROP STAGE stage_employee;
 DROP STAGE state_products;
 DROP STAGE stage_customers;
