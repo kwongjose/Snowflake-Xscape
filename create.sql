@@ -29,3 +29,99 @@ COPY INTO employees FROM @stage_employee
 
 // validation
 SELECT TOP 10 * FROM employees;
+
+// copied from andrews work
+CREATE DATABASE IF NOT EXISTS escape_velocity_sales;
+
+USE DATABASE escape_velocity_sales;
+
+CREATE SCHEMA IF NOT EXISTS raw
+       DATA_RETENTION_TIME_IN_DAYS = 0;
+
+USE SCHEMA raw;
+
+// worth considering if we want null for middle initial or an empty string
+CREATE TABLE IF NOT EXISTS customers(
+       CustomerID int not null,
+       FirstName varchar not null,
+       MiddleInitial varchar null,
+       LastName varchar not null);
+
+// informational only
+DESCRIBE TABLE customers;
+
+CREATE STAGE IF NOT EXISTS stage_customers
+       URL = "s3://seng5709/customers/";
+
+// informational - how does stage work with multiple files?
+LIST @stage_customers;
+
+COPY INTO customers FROM @stage_customers
+     file_format = (type = CSV field_delimiter = '|' skip_header = 1);
+
+// validation
+SELECT TOP 10 * FROM customers;
+
+
+// First attempt at automating creation and loading of sales data
+CREATE DATABASE IF NOT EXISTS escape_velocity_sales;
+
+USE DATABASE escape_velocity_sales;
+
+CREATE SCHEMA IF NOT EXISTS raw
+       DATA_RETENTION_TIME_IN_DAYS = 0;
+
+USE SCHEMA raw;
+
+CREATE TABLE IF NOT EXISTS sales (
+       OrderID int not null,
+       SalesPersonID int not null,
+       CustomerID int not null,
+       ProductID int not null,
+       Quantity int null,
+       Date timestamp null);
+
+// informational only
+DESCRIBE TABLE sales;
+
+CREATE STAGE IF NOT EXISTS stage_sales
+       URL = "s3://seng5709/sales/";
+
+// informational - how does stage work with multiple files?
+LIST @stage_sales;
+
+COPY INTO sales FROM @stage_sales
+     file_format = (type = CSV skip_header = 1 FIELD_DELIMITER = '|');
+     
+
+// validation
+SELECT TOP 10 * FROM sales;
+
+CREATE DATABASE IF NOT EXISTS escape_velocity_sales;
+
+USE DATABASE escape_velocity_sales;
+
+CREATE SCHEMA IF NOT EXISTS raw
+       DATA_RETENTION_TIME_IN_DAYS = 0;
+
+USE SCHEMA raw;
+
+CREATE TABLE IF NOT EXISTS products(
+       ProductID int not null,
+       Name varchar not null,
+       Price float null);
+
+// informational only
+DESCRIBE TABLE products;
+
+CREATE STAGE IF NOT EXISTS stage_products
+       URL = "s3://seng5709/products/";
+
+// informational - how does stage work with multiple files?
+LIST @stage_products;
+
+COPY INTO products FROM @stage_products
+     file_format = (type = CSV field_delimiter = '|' skip_header = 1);
+
+// validation
+SELECT TOP 10 * FROM products;
