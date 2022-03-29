@@ -1,4 +1,4 @@
-user escape_velocity_sales.curated;
+use escape_velocity_sales.curated;
 
 DROP VIEW IF EXISTS product_sales_view;
 
