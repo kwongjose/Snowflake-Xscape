@@ -13,6 +13,8 @@
 ## Slack channel: escape-velocity
 https://umndataspring2022.slack.com/archives/C02UQ7W64EB
 
+-----
+
 ## Deployment RunBook
 //TODO
 ### Creation
@@ -26,11 +28,15 @@ the file will create or do.
 Provide a removal script that will drop all tables, schemas, databases, and remove all data from
 Snowflake environment.
 
+-----
+
 ## Materialized Views
 //TODO
 Read about Snowflake materialized views and clustering. In a section of your ReadMe, give two
 specific use cases where clustering and materialized views may be beneficial to the consumption
 of the sales data.
+
+-----
 
 ## Data Quality checks
 
