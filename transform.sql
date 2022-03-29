@@ -35,3 +35,36 @@ INSERT INTO curated.customers (
        CustomerID, FirstName, MiddleInitial, LastName)
        SELECT DISTINCT CustomerID, FirstName, MiddleInitial, LastName
        FROM raw.customers;
+
+//transform sales
+DROP TABLE IF EXISTS sales;
+
+CREATE TABLE IF NOT EXISTS sales (
+       OrderID int not null,
+       SalesPersonID int not null,
+       CustomerID int not null,
+       ProductID int not null,
+       Quantity int null,
+       Date timestamp null);
+
+// copy data from raw to curated, transforming as necessary
+INSERT INTO curated.sales (
+       OrderID, SalesPersonID, CustomerID, ProductID, Quantity, Date)
+       SELECT OrderID, SalesPersonID, CustomerID, ProductID, Quantity, Date
+       FROM raw.sales;
+
+
+//transform products
+DROP TABLE IF EXISTS products;
+
+CREATE TABLE IF NOT EXISTS products (
+       ProductID int not null,
+       Name varchar not null,
+       Price decimal(10,2) null);
+
+
+// copy data from raw to curated, transforming as necessary
+INSERT INTO curated.products (
+       ProductID, Name, Price)
+       SELECT ProductID, Name, Price
+	   FROM raw.products;
