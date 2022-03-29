@@ -21,3 +21,17 @@ INSERT INTO curated.employees (
        SELECT EmployeeID, FirstName, MiddleInitial, LastName, INITCAP(Region)
        FROM raw.employees;
 
+//transform customers
+DROP TABLE IF EXISTS customers;
+
+CREATE TABLE IF NOT EXISTS customers (
+       CustomerID int not null,
+       FirstName varchar not null,
+       MiddleInitial varchar null,
+       LastName varchar not null);
+
+// copy data from raw to curated, transforming as necessary
+INSERT INTO curated.customers (
+       CustomerID, FirstName, MiddleInitial, LastName)
+       SELECT DISTINCT CustomerID, FirstName, MiddleInitial, LastName
+       FROM raw.customers;

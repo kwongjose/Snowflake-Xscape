@@ -35,7 +35,7 @@ https://umndataspring2022.slack.com/archives/C02UQ7W64EB
 - only id, first, middle, last name fields
 - duplicate row:
   17829|Stefanie||Smith
-- repeated names with different id
+- repeated names with different id - We will ignore this, as we cannot confirm if they are unique or duplicate individuals.
 
 ### Sales
 - pipe delimited
