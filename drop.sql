@@ -1,29 +1,29 @@
-USE DATABASE escape_velocity_sales;
-USE SCHEMA curated;
+// drop views
+DROP VIEW IF EXISTS escape_velocity_sales.curated.customer_monthly_sales_2019_view;
+DROP VIEW IF EXISTS escape_velocity_sales.curated.product_sales_view;
+DROP VIEW IF EXISTS escape_velocity_sales.curated.top_ten_customers_amount_view;
 
-// drop tables
-DROP TABLE sales;
-DROP TABLE products;
-DROP TABLE customers;
-DROP TABLE employees;
+// drop curated tables
+DROP TABLE IF EXISTS escape_velocity_sales.curated.sales;
+DROP TABLE IF EXISTS escape_velocity_sales.curated.products;
+DROP TABLE IF EXISTS escape_velocity_sales.curated.customers;
+DROP TABLE IF EXISTS escape_velocity_sales.curated.employees;
 
-DROP schema curated;
-USE schema raw;
+DROP SCHEMA IF EXISTS escape_velocity_sales.curated;
+
+// drop raw tables
+DROP TABLE IF EXISTS escape_velocity_sales.raw.sales;
+DROP TABLE IF EXISTS escape_velocity_sales.raw.products;
+DROP TABLE IF EXISTS escape_velocity_sales.raw.customers;
+DROP TABLE IF EXISTS escape_velocity_sales.raw.employees;
 
 // drop stages
-DROP STAGE stage_sales;
-DROP STAGE stage_employee;
-DROP STAGE stage_products;
-DROP STAGE stage_customers;
+DROP STAGE IF EXISTS escape_velocity_sales.raw.stage_sales;
+DROP STAGE IF EXISTS escape_velocity_sales.raw.stage_employee;
+DROP STAGE IF EXISTS escape_velocity_sales.raw.stage_products;
+DROP STAGE IF EXISTS escape_velocity_sales.raw.stage_customers;
 
-// drop tables
-DROP TABLE sales;
-DROP TABLE products;
-DROP TABLE customers;
-DROP TABLE employees;
-
-// drop schema
-DROP SCHEMA raw;
+DROP SCHEMA IF EXISTS escape_velocity_sales.raw;
 
 // drop database
-DROP DATABASE escape_velocity_sales;
+DROP DATABASE IF EXISTS escape_velocity_sales;
