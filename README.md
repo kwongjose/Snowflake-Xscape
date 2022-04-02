@@ -25,8 +25,27 @@ Documentation section). Include a concise table list of SQL file run order. The 
 contain the numerical run order, name of file, path in repository, and short description of what
 the file will create or do.
 ### Deletion / Rollback
-Provide a removal script that will drop all tables, schemas, databases, and remove all data from
-Snowflake environment.
+If rollback is necessary, all databases, tables, schemas, and staging environments can be quickly removed from the environment.
+
+1. Ensure user is properly authenticated to the Snowflake environment. The user should also have SSH credentials configured for GitHub on their machine.
+
+If these steps have already been completed, you may disregard, and skip to **Step 4**.
+
+2. If the repository is not yet cloned, do this now. The repository will default to the `main` branch. This is the correct branch to run these commands from.
+3.  The necessary files are at the root of this repository. Traverse to the root of the directory, 
+
+These commands are as shown below:
+``` 
+git clone git@github.com:kwongjose/Snowflake-Xscape.git
+
+cd Snowflake-Xscape
+```
+
+4. In the CLI, type the command: 
+```
+snowsql -f drop.sql
+```
+5. The code will execute, with output to the console about the successful deletion of all resources. You have successfully rolled back our changes.
 
 -----
 
