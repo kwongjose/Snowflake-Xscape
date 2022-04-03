@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS products;
 CREATE TABLE IF NOT EXISTS products (
        ProductID int not null,
        Name varchar not null,
-       Price decimal(10,2) null);
+       Price number(12,4) null);
 
 
 // copy data from raw to curated, transforming as necessary
