@@ -70,7 +70,7 @@ SELECT TOP 10 * FROM sales;
 CREATE TABLE IF NOT EXISTS products(
        ProductID int not null,
        Name varchar not null,
-       Price float null);
+       Price number(12,4) null);
 
 // informational only
 DESCRIBE TABLE products;
