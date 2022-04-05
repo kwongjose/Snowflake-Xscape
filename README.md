@@ -96,7 +96,7 @@ cd Snowflake-Xscape
 snowsql -f drop.sql
 ```
 
-5. The code will execute, with output to the console about the successful deletion of all resources. You have successfully rolled back our changes.
+5. The code will execute, with output to the console about the successful deletion of all resources. You have successfully rolled back our changes. If the database is empty, or does not exist, it will output appropriate errors, however the final result is still that all data has been cleansed from the system.
 
 -----
 
