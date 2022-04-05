@@ -109,11 +109,10 @@ snowsql -f drop.sql
 
 -----
 
-## Materialized Views
-//TODO
-Read about Snowflake materialized views and clustering. In a section of your ReadMe, give two
-specific use cases where clustering and materialized views may be beneficial to the consumption
-of the sales data.
+## Materialized Views and Clustering
+1. Lets assume that we have a complete list of all products that a customer can buy and that customers buy product that is in stock. We want to perform queries against those products and we want to get orders that happen in a specific date range. First, we can create a materialized view that lists only interactions among product that you keep in stock. Therefore, as long as orders are for product that is in that materialized view the searchers will be faster. We can create a cluster key on the Date column and the ProductID column because we only want a specific set of rows in a specific order. Both materialized views and clustering in this case help create faster and more efficient queries. 
+
+2. Lets assume we have a complete list of all customers who can purchase product. If we want to perform queries against that set of customers, we can create a materialized view that lists only interactions with that customers list. We can create a clustering key with the Date and CustomerID column so that we can query on a specific set of dates during a time period. This case would improve queries where we want to determine which customers made purchase during a time period and how much did they buy. 
 
 -----
 
