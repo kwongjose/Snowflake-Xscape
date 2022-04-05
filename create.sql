@@ -24,8 +24,8 @@ CREATE STAGE IF NOT EXISTS stage_employee
 COPY INTO employees FROM @stage_employee
      file_format = (type = CSV skip_header = 1);
 
-// validation
-SELECT TOP 10 * FROM employees;
+-- // validation
+-- SELECT TOP 10 * FROM employees;
 
 // worth considering if we want null for middle initial or an empty string
 CREATE TABLE IF NOT EXISTS customers(
@@ -43,8 +43,8 @@ CREATE STAGE IF NOT EXISTS stage_customers
 COPY INTO customers FROM @stage_customers
      file_format = (type = CSV field_delimiter = '|' skip_header = 1);
 
-// validation
-SELECT TOP 10 * FROM customers;
+-- // validation
+-- SELECT TOP 10 * FROM customers;
 
 CREATE TABLE IF NOT EXISTS sales (
        OrderID int not null,
@@ -64,8 +64,8 @@ COPY INTO sales FROM @stage_sales
      file_format = (type = CSV skip_header = 1 FIELD_DELIMITER = '|');
      
 
-// validation
-SELECT TOP 10 * FROM sales;
+-- // validation
+-- SELECT TOP 10 * FROM sales;
 
 CREATE TABLE IF NOT EXISTS products(
        ProductID int not null,
@@ -82,5 +82,5 @@ CREATE STAGE IF NOT EXISTS stage_products
 COPY INTO products FROM @stage_products
      file_format = (type = CSV field_delimiter = '|' skip_header = 1);
 
-// validation
-SELECT TOP 10 * FROM products;
+-- // validation
+-- SELECT TOP 10 * FROM products;

@@ -25,9 +25,7 @@ This runbook will detail how to provision our database, schemas, staging environ
 |-------|------------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1     | create.sql             | ./        | Creates database, raw schema, staging tables for customers, employees, sales, and products. Downloads and loads data to the staging tables.                       |
 | 2     | transform.sql          | ./        | Creates curated schema, curated tables for customers, employees, sales, and products. Transforms and sanitizes data from staging, and loads it to curated tables. |
-| 3     | create_views.sql       | ./        | Creates a view for monthly sales in 2019. Outputs top 24 results.                                                                                                 |
-| 4     | top_customers_view.sql | ./        | Creates a view for the highest-spending customers. Outputs top ten customers.                                                                                     |
-| 5     | product_sales_view.sql | ./        | Creates a view for product sales.                                                                                                                                 |
+| 3     | create_views.sql       | ./        | Creates a view for monthly sales in 2019. Creates a view for the highest-spending customers. Outputs top ten customers.  Creates a view for product sales.                                                                                  
 
 ### Runbook (Longform)
 1. Ensure user is properly authenticated to the Snowflake environment. The user should also have SSH credentials configured for GitHub on their machine.
@@ -62,21 +60,14 @@ This command creates the curated schema, curated tables for customers, employees
 ```
 snowsql -f create_views.sql
 ```
-This command creates a view for monthly sales in 2019. It outputs the top 24 results.
+This command creates a view for monthly sales in 2019.
 
-7. In the CLI, type the command: 
-```
-snowsql -f top_customers_view.sql
-```
-This command creates a view for the highest-spending customers. It outputs the top ten customers.
+This command also creates a view for the highest-spending customers. It outputs the top ten customers.
 
-8. In the CLI, type the command: 
-```
-snowsql -f product_sales_view.sql
-```
-This command creates a view for product sales.
+This command also creates product and sales view that includes columns for sales year
+and month.
 
-9. This is the end, you have successfully deployed our changes.
+7. This is the end, you have successfully deployed our changes.
 
 ---
 
