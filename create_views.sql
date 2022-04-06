@@ -15,8 +15,8 @@ CREATE VIEW customer_monthly_sales_2019_view AS
         GROUP BY sales.CustomerID, YEAR(sales.Date), MONTH(sales.Date))
 	AS a;
 
-// sanity check
-SELECT TOP 24 * FROM customer_monthly_sales_2019_view;
+-- // sanity check
+-- SELECT TOP 24 * FROM customer_monthly_sales_2019_view;
 
 DROP VIEW IF EXISTS top_ten_customers_amount_view;
 CREATE VIEW top_ten_customers_amount_view AS (
