@@ -28,7 +28,7 @@ This runbook will detail how to provision our database, schemas, staging environ
 | 3     | create_views.sql       | ./        | Creates a view for monthly sales in 2019. Creates a view for the highest-spending customers. Outputs top ten customers.  Creates a view for product sales.                                                                                  
 
 ### Runbook (Longform)
-1. Ensure user is properly authenticated to the Snowflake environment. The user should also have SSH credentials configured for GitHub on their machine.
+1. Ensure user is properly authenticated to the Snowflake environment. The user should also have access to GitHub on their machine.
 
 If these steps have already been completed, you may disregard, and skip to **Step 4**.
 
@@ -39,7 +39,7 @@ If these steps have already been completed, you may disregard, and skip to **Ste
 These commands are as shown below:
 
 ``` 
-git clone git@github.com:kwongjose/Snowflake-Xscape.git
+git clone https://github.com/kwongjose/Snowflake-Xscape.git
 
 cd Snowflake-Xscape
 ```
@@ -74,7 +74,7 @@ and month.
 ## Deletion / Rollback
 If rollback is necessary, all databases, tables, schemas, and staging environments can be quickly removed from the environment.
 
-1. Ensure user is properly authenticated to the Snowflake environment. The user should also have SSH credentials configured for GitHub on their machine.
+1. Ensure user is properly authenticated to the Snowflake environment. The user should also have access to GitHub on their machine.
 
 If these steps have already been completed, you may disregard, and skip to **Step 4**.
 
@@ -85,7 +85,7 @@ If these steps have already been completed, you may disregard, and skip to **Ste
 These commands are as shown below:
 
 ``` 
-git clone git@github.com:kwongjose/Snowflake-Xscape.git
+git clone https://github.com/kwongjose/Snowflake-Xscape.git
 
 cd Snowflake-Xscape
 ```
@@ -101,39 +101,32 @@ snowsql -f drop.sql
 -----
 
 ## Materialized Views and Clustering
-1. Lets assume that we have a complete list of all products that a customer can buy and that customers buy product that is in stock. We want to perform queries against those products and we want to get orders that happen in a specific date range. First, we can create a materialized view that lists only interactions among product that you keep in stock. Therefore, as long as orders are for product that is in that materialized view the searchers will be faster. We can create a cluster key on the Date column and the ProductID column because we only want a specific set of rows in a specific order. Both materialized views and clustering in this case help create faster and more efficient queries. 
+1. Lets assume that we have a complete list of all products that a customer can buy and that customers buy product that is in stock. We want to perform queries against those products and we want to get orders that happen in a specific date range. First, we can create a materialized view that lists only interactions among product that you keep in stock. Therefore, as long as orders are for product that is in that materialized view the searchers will be faster. We can create a cluster key on the Date column and the ProductID column because we only want a specific set of rows in a specific order. Both materialized views and clustering in this case help create faster and more efficient queries. This use case may require the date field to be a non-nullable field, which is an update to the current table format.
 
-2. Lets assume we have a complete list of all customers who can purchase product. If we want to perform queries against that set of customers, we can create a materialized view that lists only interactions with that customers list. We can create a clustering key with the Date and CustomerID column so that we can query on a specific set of dates during a time period. This case would improve queries where we want to determine which customers made purchase during a time period and how much did they buy. 
+2. Lets assume we have a complete list of all existing customers who can purchase product. If we want to perform queries against that set of customers, we can create a materialized view that lists only interactions with that customers list. We can create a clustering key with the Date and CustomerID column so that we can query on a specific set of dates during a time period. This case would improve queries where we want to determine which existing customers have made a purchase during a time period and how much did they buy. This use case may require the date field to be a non-nullable field, which is an update to the current table format.
 
 -----
 
 ## Data Quality checks
 
-- check for duplicate ID value
-- check for NULL values
+- Duplicate ID values were checked for in all datasets.
+- Null fields were checked for in all datasets.
 
 ### Employees2.csv
-- inconsistent capitalization of Region.
-- check for duplicated names?
-- O'Leary has a single quote as middle name
+- Inconsistent capitalization of Regions were detected. This is remedied during staging.
+- O'Leary has a single quote as middle name. This was kept, as we cannot determine if this is incorrect information.
+- No duplicate employee entries were found.
 
 ### Products.csv
-- uses pipe delimiters instead of comma
-- check for duplicate product name
-- 48 products have a price of 0.0000
-- check for negative price?
-- punctuation in product name [,-'.]
+- No duplicate entries were found.
+- All products with price of $0.00 were retained in the dataset.
+- No products with a negative price were found.
+- Special characters in product names did not cause parsing errors.
 
 ### Customer
-- pipe delimited
-- only id, first, middle, last name fields
-- duplicate row:
-  17829|Stefanie||Smith
-- repeated names with different id - We will ignore this, as we cannot confirm if they are unique or duplicate individuals.
+- Duplicate entries were found and cleansed from the dataset. This does not include customers who share the same name as one another.
 
 ### Sales
-- pipe delimited
-- foreign keys to employee, customer, product
-- check for invalid foreign key values (non-joinable rows)
-- check for invalid dates/times
-- check for invalid quantity
+- All foreign key values were valid for joining.
+- All Date and Time entries were formatted correctly.
+- All quantities were numeric values greater than zero.
