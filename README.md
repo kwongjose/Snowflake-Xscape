@@ -125,6 +125,7 @@ snowsql -f drop.sql
 
 ### Customer
 - Duplicate entries were found and cleansed from the dataset. This does not include customers who share the same name as one another.
+  - Duplicate entry that was removed: 17829|Stefanie||Smith. Only one duplicate entry found.
 
 ### Sales
 - All foreign key values were valid for joining.
